@@ -7,7 +7,7 @@
     "displayName": "QuestionAnswer"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {

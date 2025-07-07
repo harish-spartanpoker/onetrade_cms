@@ -20,22 +20,22 @@ const Navbar = ({
   navRHS: NavItem;
 }) => {
   return (
-    <header className="h-full w-full poppins-normal p-2 md:px-20 sticky top-0 z-40">
+    <header className="poppins-normal sticky top-0 z-40 h-full w-full p-2 md:px-20">
       <nav className="flex w-full items-center space-x-4">
-        <div className="navbar-brand mx-auto md:ms-0 md:me-auto">
-          <Link href="https://exchange.onetrade.live">
+        <div className="navbar-brand mx-auto md:me-auto md:ms-0">
+          <Link href="/">
             <Image
               width={260}
               height={60}
               src={strapiImage(logo.url)}
               alt="OneTrade Logo"
-              className="max-w-48 md:max-w-64 h-auto"
+              className="h-auto max-w-48 md:max-w-64"
             />
           </Link>
         </div>
         {items && (
-          <div className="nav-list h-full hidden md:block">
-            <ul className="flex space-x-5 content-center items-center h-full p-5">
+          <div className="nav-list hidden h-full md:block">
+            <ul className="flex h-full content-center items-center space-x-5 p-5">
               {items.map((el: NavItem, ind: number) => (
                 <li key={ind}>
                   <Link

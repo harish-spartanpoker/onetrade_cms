@@ -8,7 +8,31 @@ export const BlogSection = (props: any) => {
   return (
     <div className="container mx-auto max-w-[1200px] px-2 py-16 text-white">
       <div className="mx-auto max-w-5xl">
-        <p className="font-sans text-light-gray mb-12 text-center text-2xl md:text-5xl">
+        <div className="mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center text-lg font-semibold text-teal-400 hover:text-teal-300"
+          >
+            <span className="mr-2">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </span>
+            Back
+          </Link>
+        </div>
+        <p className="text-light-gray mb-12 text-center font-sans text-2xl md:text-5xl">
           Knowledge and Trends
         </p>
         <div className="grid grid-cols-2 md:gap-8">

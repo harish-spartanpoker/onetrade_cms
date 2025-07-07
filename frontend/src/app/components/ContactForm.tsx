@@ -12,16 +12,20 @@ import { internalCall } from "../../../lib/axiosInstance";
 const formSchema = yup.object({
   name: yup.string().max(50).required("Name is Required"),
   email: yup.string().email().required("Email is Required"),
-  message: yup.string().max(200).required("Message is Required"),
+  message: yup.string().max(1000).required("Message is Required"),
   phone: yup
     .string()
-    .max(15)
+    .max(15, "Phone number must be at most 15 characters")
+    .matches(
+      /^\+[1-9]\d{7,14}$/,
+      "Enter a valid international phone number (e.g., +1234567890)"
+    )
     .when(["$afVisible"], (afVisible, schema) => {
       let afState = Array.isArray(afVisible) ? afVisible[0] : afVisible;
       if (afState) {
         return schema.required("Phone is Required");
       } else {
-        return schema;
+        return schema.notRequired();
       }
     }),
   country: yup
@@ -35,28 +39,8 @@ const formSchema = yup.object({
         return schema;
       }
     }),
-  traffic: yup
-    .string()
-    .max(100)
-    .when(["$afVisible"], (afVisible, schema) => {
-      let afState = Array.isArray(afVisible) ? afVisible[0] : afVisible;
-      if (afState) {
-        return schema.required("Traffic Type is required");
-      } else {
-        return schema;
-      }
-    }),
-  platform: yup
-    .string()
-    .max(100)
-    .when(["$afVisible"], (afVisible, schema) => {
-      let afState = Array.isArray(afVisible) ? afVisible[0] : afVisible;
-      if (afState) {
-        return schema.required("Platform is Required");
-      } else {
-        return schema;
-      }
-    }),
+  traffic: yup.string().max(100, "Traffic Type must be at most 100 characters"),
+  platform: yup.string().max(100, "Platform must be at most 100 characters"),
 });
 
 export default function ContactForm() {
@@ -135,11 +119,12 @@ export default function ContactForm() {
   return (
     <div className="bg-black bg-neutral-900 px-4 py-16 text-white">
       <div className="contact-form-inner-wrapper border-radius-primary mx-auto bg-black p-2 md:max-w-4xl md:p-6">
-        <h2 className="font-sans text-light-gray mb-4 text-center text-2xl md:text-5xl">
+        <h2 className="text-light-gray mb-4 text-center font-sans text-2xl md:text-5xl">
           Got questions?
         </h2>
         <p className="text-muted mb-6 text-center text-base md:text-2xl">
-        We’re right here for you. Reach out and our support team will help you promptly! 
+          We're right here for you. Reach out and our support team will help you
+          promptly!
         </p>
         <form onSubmit={handleSubmit(processForm)} className="mx-auto md:w-2/3">
           {afVisible ? (
@@ -164,7 +149,7 @@ export default function ContactForm() {
                       id="email"
                       {...register("email")}
                       className="form-control w-full rounded-xl p-2 text-white outline-none focus:ring-2 focus:ring-teal-500"
-                      placeholder="Email"
+                      placeholder="Email *"
                     />
                     {errors.email?.message && (
                       <p className="text-red-400">{errors.email.message}</p>
@@ -178,7 +163,7 @@ export default function ContactForm() {
                       id="phone"
                       {...register("phone")}
                       className="form-control w-full rounded-xl p-2 text-white outline-none focus:ring-2 focus:ring-teal-500"
-                      placeholder="Phone"
+                      placeholder="Phone *"
                     />
                     {errors.phone?.message && (
                       <p className="text-red-400">{errors.phone.message}</p>
@@ -190,7 +175,7 @@ export default function ContactForm() {
                       id="country"
                       {...register("country")}
                       className="form-control w-full rounded-xl p-2 text-white outline-none focus:ring-2 focus:ring-teal-500"
-                      placeholder="Country"
+                      placeholder="Country *"
                     />
                     {errors.country?.message && (
                       <p className="text-red-400">{errors.country.message}</p>
@@ -248,7 +233,7 @@ export default function ContactForm() {
                       type="email"
                       id="email"
                       {...register("email")}
-                      className="form-control w-full rounded-xl p-2 text-white focus:ring-2 focus:ring-teal-500"
+                      className="form-control w-full rounded-xl p-2 text-white outline-none focus:ring-2 focus:ring-teal-500"
                       placeholder="Email *"
                     />
                     {errors.email?.message && (
@@ -265,7 +250,7 @@ export default function ContactForm() {
               {...register("message")}
               rows={4}
               className="form-control mb-2 w-full rounded-xl p-2 text-white outline-none focus:ring-2 focus:ring-teal-500"
-              placeholder="Message"
+              placeholder="Message *"
             ></textarea>
             {errors.message?.message && (
               <p className="text-red-400">{errors.message.message}</p>

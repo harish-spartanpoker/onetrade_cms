@@ -5,7 +5,7 @@ import Navbar from "./components/shared/Navbar/Navbar";
 import fetchContentType from "../../lib/strapi/fetchContentType";
 import Footer from "./components/Footer";
 import { generateMetadataObject } from "../../lib/shared/metadata";
-
+import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -47,6 +47,10 @@ export default async function RootLayout({
         />
         <main className="">{children}</main>
         <Footer FooterNavItems={pageData.FooterNavItems} />
+        <Script
+          src="https://launchers.bonb.io/support.js?id=eINYzEDUo6"
+          defer
+        ></Script>
       </body>
     </html>
   );
