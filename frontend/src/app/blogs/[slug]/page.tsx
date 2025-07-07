@@ -43,5 +43,5 @@ export default async function Page({
     );
   }
 
-  return <ArticleLayout data={pageData} />;
+  return <ArticleLayout data={pageData} showBackButton={true} />;
 }
