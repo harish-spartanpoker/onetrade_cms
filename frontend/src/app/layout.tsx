@@ -47,10 +47,24 @@ export default async function RootLayout({
         />
         <main className="">{children}</main>
         <Footer FooterNavItems={pageData.FooterNavItems} />
-        <Script
+        {/* ✅ Correct way to embed Tawk.to */}
+        <Script id="tawkto-chat" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+              var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+              s1.async=true;
+              s1.src='https://embed.tawk.to/69008dc46b37cd19503f3a2c/1j8l2jk90';
+              s1.charset='UTF-8';
+              s1.setAttribute('crossorigin','*');
+              s0.parentNode.insertBefore(s1,s0);
+            })();
+          `,
+        }} />
+        {/* <Script
           src="https://launchers.bonb.io/support.js?id=eINYzEDUo6"
           defer
-        ></Script>
+        ></Script> */}
       </body>
     </html>
   );
